@@ -3,7 +3,7 @@
 
 #include <exception>
 #include <QString>
-
+namespace QtCommon2 {
 class Q_DECL_EXPORT QtException : public std::exception
 {
 public:
@@ -18,6 +18,8 @@ public:
 private:
     QString msg;
 };
+
+}
 
 
 #endif // EXC_H
