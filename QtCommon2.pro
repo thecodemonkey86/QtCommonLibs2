@@ -32,7 +32,8 @@ HEADERS += \
     core/cast.h \
     util/math/mathutil.h \
     util/string/stringutil.h \
-    exception/qtexception.h
+    exception/qtexception.h \
+    util/collection/orderedset.h
 
 unix {
     target.path = /usr/lib
