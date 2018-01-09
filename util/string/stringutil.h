@@ -9,6 +9,7 @@ namespace QtCommon2 {
     public:
         StringUtil();
         static QString& replaceFirst( QString &subject, const QString & search, const QString & replace);
+        static QString ucFirst( const QString &str);
     };
 
 

@@ -1,5 +1,10 @@
 #include "qtexception.h"
 
+QtCommon2::QtException::QtException()
+{
+
+}
+
 QtCommon2::QtException::QtException(const QString &msg) : exception()
 {
     this->msg = msg;

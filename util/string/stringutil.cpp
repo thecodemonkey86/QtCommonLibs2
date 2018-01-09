@@ -12,3 +12,8 @@ QString& QtCommon2::StringUtil::replaceFirst( QString &subject, const QString & 
     }
     return subject;
 }
+
+QString QtCommon2::StringUtil::ucFirst(const QString &str)
+{
+    return str[0].toUpper() + str.mid(1);
+}
