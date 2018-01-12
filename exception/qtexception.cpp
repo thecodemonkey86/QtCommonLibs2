@@ -1,16 +1,22 @@
 #include "qtexception.h"
 
-QtException::QtException(const QString &msg) : exception()
+QtCommon2::QtException::QtException(const QString &msg) : exception()
 {
     this->msg = msg;
 }
 
-QtException::~QtException()
+QtCommon2::QtException::~QtException()
 {
 
 }
 
-const QString &QtException::getMsg() const
+const QString & QtCommon2::QtException::getMsg() const
 {
     return msg;
+}
+
+
+const char *QtCommon2::QtException::what()  const noexcept
+{
+    return msg.toUtf8().data();
 }

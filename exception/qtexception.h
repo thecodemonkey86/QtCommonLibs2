@@ -1,5 +1,5 @@
-#ifndef EXC_H
-#define EXC_H
+#ifndef QTEXCEPTION_H
+#define QTEXCEPTION_H
 
 #include <exception>
 #include <QString>
@@ -17,9 +17,13 @@ public:
 
 private:
     QString msg;
+
+    // exception interface
+public:
+    virtual const char *what() const noexcept  override;
 };
 
 }
 
 
-#endif // EXC_H
+#endif // QTEXCEPTION_H

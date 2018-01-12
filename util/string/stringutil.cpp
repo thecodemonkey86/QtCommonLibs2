@@ -12,3 +12,15 @@ QString& QtCommon2::StringUtil::replaceFirst( QString &subject, const QString & 
     }
     return subject;
 }
+
+
+int QtCommon2::StringUtil::firstIndexOfMultiple(const QString & s,int start, const QVector<QChar>& c ) {
+        for(int i=start;i<s.length();i++) {
+            for(int j=0;j<c.size();j++) {
+                if (s[i] == c[j]) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
