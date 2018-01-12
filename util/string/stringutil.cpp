@@ -1,5 +1,11 @@
 #include "stringutil.h"
 
+
+QString QtCommon2::StringUtil::ucFirst(const QString &str)
+{
+    return str[0].toUpper() + str.mid(1);
+}
+
 QtCommon2::StringUtil::StringUtil()
 {
 }

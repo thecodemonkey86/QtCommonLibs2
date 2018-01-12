@@ -7,6 +7,7 @@ namespace QtCommon2 {
 class Q_DECL_EXPORT QtException : public std::exception
 {
 public:
+    QtException();
     QtException(const QString& msg);
 
     virtual ~QtException() ;
