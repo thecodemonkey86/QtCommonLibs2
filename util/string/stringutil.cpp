@@ -1,9 +1,17 @@
 #include "stringutil.h"
 
+#include <QRegularExpression>
+
 
 QString QtCommon2::StringUtil::ucFirst(const QString &str)
 {
     return str[0].toUpper() + str.mid(1);
+}
+
+bool QtCommon2::StringUtil::isValidEmail(const QString &email)
+{
+    QRegularExpression regex(QStringLiteral("^[0-9a-zA-Z]+([0-9a-zA-Z][-._+])[0-9a-zA-Z]+@[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)([0-9a-zA-Z][.])[a-zA-Z]{2,6}$"));
+    return !regex.match(email).hasMatch();
 }
 
 QtCommon2::StringUtil::StringUtil()

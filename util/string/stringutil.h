@@ -12,6 +12,7 @@ namespace QtCommon2 {
         static QString& replaceFirst( QString &subject, const QString & search, const QString & replace);
         static int firstIndexOfMultiple(const QString &s, int start, const QVector<QChar> &c);
         static QString ucFirst( const QString &str);
+        static bool isValidEmail(const QString & email);
     };
 
 
