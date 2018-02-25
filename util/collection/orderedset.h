@@ -30,29 +30,29 @@ public:
         return items.contains(value);
     }
 
-    QVector<T> toList() {
+    QVector<T> toList() const {
         return insertionOrder;
     }
 
-    bool isEmpty() {
+    bool isEmpty() const {
         return items.isEmpty();
     }
 
-    int size() {
+    int size() const {
         return insertionOrder.size();
     }
 
     inline typename QVector<T>::iterator begin() {
         return insertionOrder.begin();
     }
-    inline typename QVector<T>::const_iterator constBegin() const {
+    inline typename QVector<T>::const_iterator begin() const {
         return insertionOrder.constBegin();
     }
     inline typename QVector<T>::iterator end() {
         return insertionOrder.end();
     }
 
-    inline typename QVector<T>::const_iterator constEnd() const {
+    inline typename QVector<T>::const_iterator end() const {
          return insertionOrder.constEnd();
     }
 
