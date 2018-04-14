@@ -90,8 +90,7 @@ namespace QtCommon2 {
         return floor(d* 100 + 0.5 ) / 100;
     }
 
-    #endif // MATHUTIL
-
 
 
 }
+  #endif // MATHUTIL
