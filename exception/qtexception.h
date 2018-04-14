@@ -3,6 +3,8 @@
 
 #include <exception>
 #include <QString>
+#include "qtcommon2_global.h"
+
 namespace QtCommon2 {
 class Q_DECL_EXPORT QtException : public std::exception
 {
