@@ -1,6 +1,7 @@
 #ifndef ORDEREDSET_H
 #define ORDEREDSET_H
 #include <QSet>
+#include <QVector>
 namespace QtCommon2 {
 template <class T>
 class OrderedSet
