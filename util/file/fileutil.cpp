@@ -1,5 +1,26 @@
 #include "fileutil.h"
 
+#include <QHash>
+
+QString QtCommon2::FileUtil::getFilteredFileName(const QString &filename)
+{
+  QString fn(filename);
+      QHash<char,char> replace;
+      replace.insert(':','-');
+      replace.insert('?','-');
+      replace.insert('/','_');
+      replace.insert('\\','_');
+      replace.insert('\t','_');
+      replace.insert('"','_');
+      replace.insert('|','_');
+
+      for(char key : replace.keys()) {
+          fn=fn.replace(QChar(key), QChar(replace[key]));
+      }
+      fn = fn.trimmed();
+      return fn;
+}
+
 bool QtCommon2::FileUtil::isValidFileName(const QString &filename)
 {
 #ifdef _WIN32
