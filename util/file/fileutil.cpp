@@ -144,6 +144,21 @@ bool QtCommon2::FileUtil::isValidFileNameUnix(const QString &filename)
     return true;
 }
 
+uint64_t QtCommon2::FileUtil::calcDirSize(const QDir & dir) {
+  uint64_t size = 0;
+  //calculate total size of current directories' files
+  QDir::Filters fileFilters = QDir::Files|QDir::System|QDir::Hidden;
+  for(QString filePath : dir.entryList(fileFilters)) {
+    QFileInfo fi(dir, filePath);
+    size+= static_cast<uint64_t>(fi.size());
+  }
+  //add size of child directories recursively
+  QDir::Filters dirFilters = QDir::Dirs|QDir::NoDotAndDotDot|QDir::System|QDir::Hidden;
+  for(QString childDirPath : dir.entryList(dirFilters))
+    size+= calcDirSize(dir.path() + QDir::separator() + childDirPath);
+  return size;
+}
+
 QtCommon2::FileUtil::FileUtil()
 {
 

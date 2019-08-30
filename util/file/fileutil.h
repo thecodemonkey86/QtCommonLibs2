@@ -1,6 +1,7 @@
 #ifndef FILEUTIL_H
 #define FILEUTIL_H
 
+#include <QDir>
 #include <QString>
 #include "qtcommon2_global.h"
 
@@ -13,6 +14,7 @@ public:
     static bool isValidFileName(const QString & filename );
     static bool isValidFileNameWin32(const QString & filename );
     static bool isValidFileNameUnix(const QString & filename );
+    static uint64_t calcDirSize(const QDir & dir);
 private:
     FileUtil();
     ~FileUtil();

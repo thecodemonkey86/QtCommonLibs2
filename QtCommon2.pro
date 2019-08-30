@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       -= gui
-CONFIG += c++14
+CONFIG += c++1z
 
 TARGET = QtCommon2
 TEMPLATE = lib

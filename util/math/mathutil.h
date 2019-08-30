@@ -58,25 +58,25 @@ namespace QtCommon2 {
             if (exp & 1) result *= base;
             exp >>= 1;
             base *= base;
-        [[clang::fallthrough]]; case 5:
+        [[fallthrough]]; case 5:
             if (exp & 1) result *= base;
             exp >>= 1;
             base *= base;
-        [[clang::fallthrough]]; case 4:
+        [[fallthrough]]; case 4:
             if (exp & 1) result *= base;
             exp >>= 1;
             base *= base;
-        [[clang::fallthrough]]; case 3:
+        [[fallthrough]]; case 3:
             if (exp & 1) result *= base;
             exp >>= 1;
             base *= base;
-        [[clang::fallthrough]]; case 2:
+        [[fallthrough]]; case 2:
             if (exp & 1) result *= base;
             exp >>= 1;
             base *= base;
-        [[clang::fallthrough]]; case 1:
+        [[fallthrough]]; case 1:
             if (exp & 1) result *= base;
-        [[clang::fallthrough]]; default:
+        [[fallthrough]]; default:
             return result;
         }
     }

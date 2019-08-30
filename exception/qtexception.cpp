@@ -8,10 +8,9 @@ QtCommon2::QtException::QtException()
 QtCommon2::QtException::QtException(const QString &msg) : exception()
 {
     this->msg = msg;
-    this->line = 0;
 }
 
-QtCommon2::QtException::QtException(const QString &msg, const QString &file, int line) : exception()
+QtCommon2::QtException::QtException(const QString &msg, const QString &file, int line)
 {
     this->msg = msg;
     this->line = line;
