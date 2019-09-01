@@ -1,11 +1,18 @@
 #include "stringutil.h"
 
 #include <QRegularExpression>
+#include <QTextDecoder>
 
 
 QString QtCommon2::StringUtil::ucFirst(const QString &str)
 {
     return str[0].toUpper() + str.mid(1);
+}
+
+QString QtCommon2::StringUtil::fromCp1252(const QByteArray &data)
+{
+    QTextDecoder* decoder = QTextCodec::codecForName("Windows-1252")->makeDecoder();
+    return  decoder->toUnicode(data,data.length());
 }
 
 bool QtCommon2::StringUtil::isValidEmail(const QString &email)
