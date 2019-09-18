@@ -4,3 +4,8 @@ CancelException::CancelException()
 {
 
 }
+
+CancelException::CancelException(const QString &msg) : QtException(msg)
+{
+
+}
