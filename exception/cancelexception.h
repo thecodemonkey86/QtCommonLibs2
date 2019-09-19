@@ -9,6 +9,7 @@ class Q_DECL_EXPORT CancelException : public QtException
 {
 public:
     CancelException();
+    CancelException(const QString &msg);
 };
 
 #endif // CANCELEXCEPTION_H
