@@ -2,12 +2,13 @@
 
 QtCommon2::QtException::QtException()
 {
-
+  this->line = 0;
 }
 
 QtCommon2::QtException::QtException(const QString &msg) : exception()
 {
     this->msg = msg;
+    this->line = 0;
 }
 
 QtCommon2::QtException::QtException(const QString &msg, const QString &file, int line)
