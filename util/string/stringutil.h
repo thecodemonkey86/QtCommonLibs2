@@ -15,6 +15,7 @@ namespace QtCommon2 {
         static QString fromCp1252( const QByteArray &data);
         static bool isValidEmail(const QString & email);
        static QString randString(int length,const QString&chars="abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+       static wchar_t * toWCharT(const QString &s);
     };
 
 

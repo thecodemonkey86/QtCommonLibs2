@@ -56,3 +56,12 @@ QString QtCommon2::StringUtil::randString( int length,const QString &chars)
     return s;
 }
 
+wchar_t *QtCommon2::StringUtil::toWCharT(const QString &s)
+{
+
+    wchar_t* c_Text = new wchar_t[static_cast<unsigned long long>(s.length()) + 1];
+    s.toWCharArray(c_Text);
+    c_Text[s.length()] = '\0';  
+    return c_Text;
+}
+
