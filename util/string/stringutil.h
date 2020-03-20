@@ -3,9 +3,11 @@
 
 #include <QString>
 #include <QVector>
+#include "qtcommon2_global.h"
+
 namespace QtCommon2 {
 
-    class Q_DECL_EXPORT StringUtil
+    class QTCOMMON2SHARED_EXPORT StringUtil
     {
     public:
         StringUtil();

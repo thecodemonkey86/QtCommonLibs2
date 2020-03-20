@@ -6,7 +6,7 @@
 #include "qtcommon2_global.h"
 #define throwExceptionWithLine(msg) throw QtCommon2::QtException(msg, __FILE__, __LINE__)
 namespace QtCommon2 {
-class Q_DECL_EXPORT QtException : public std::exception
+class QTCOMMON2SHARED_EXPORT QtException : public std::exception
 {
 public:
     QtException();

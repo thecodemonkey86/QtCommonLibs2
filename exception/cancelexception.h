@@ -5,11 +5,12 @@
 
 using namespace QtCommon2;
 
-class Q_DECL_EXPORT CancelException : public QtException
+class QTCOMMON2SHARED_EXPORT CancelException : public QtException
 {
 public:
     CancelException();
     CancelException(const QString &msg);
+    virtual ~CancelException() override = default;
 };
 
 #endif // CANCELEXCEPTION_H
