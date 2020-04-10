@@ -8,7 +8,7 @@ namespace QtCommon2 {
     public:
         CryptUtil();
        static QString getRandomString(int length);
-
+       static QString md5(const QString & s);
     };
 }
 #endif // CRYPTUTIL_H
