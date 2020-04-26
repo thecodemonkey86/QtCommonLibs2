@@ -20,8 +20,8 @@ public:
     int getLine() const;
     const QString & getFile() const;
 
-    QString getLogString() const;
-private:
+    virtual QString getLogString() const;
+protected:
     int line;
     QString file;
     QString msg;
