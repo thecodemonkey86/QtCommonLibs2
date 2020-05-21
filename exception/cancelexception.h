@@ -3,14 +3,14 @@
 
 #include "qtexception.h"
 
-using namespace QtCommon2;
+namespace QtCommon2 {
 
-class QTCOMMON2SHARED_EXPORT CancelException : public QtException
-{
-public:
-    CancelException();
-    CancelException(const QString &msg);
-    virtual ~CancelException() override = default;
-};
-
+    class QTCOMMON2SHARED_EXPORT CancelException : public QtException
+    {
+    public:
+        CancelException();
+        CancelException(const QString &msg);
+        virtual ~CancelException();
+    };
+}
 #endif // CANCELEXCEPTION_H

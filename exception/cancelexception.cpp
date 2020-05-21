@@ -1,11 +1,16 @@
 #include "cancelexception.h"
 
-CancelException::CancelException()
+QtCommon2::CancelException::CancelException()
 {
 
 }
 
-CancelException::CancelException(const QString &msg) : QtException(msg)
+QtCommon2::CancelException::CancelException(const QString &message) : QtException(message)
+{
+
+}
+
+QtCommon2::CancelException::~CancelException()
 {
 
 }
