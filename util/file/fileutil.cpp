@@ -13,6 +13,9 @@ QString QtCommon2::FileUtil::getFilteredFileName(const QString &filename)
       replace.insert('\t','_');
       replace.insert('"','_');
       replace.insert('|','_');
+      replace.insert('*','_');
+      replace.insert('<','_');
+      replace.insert('>','_');
 
       for(char key : replace.keys()) {
           fn=fn.replace(QChar(key), QChar(replace[key]));
