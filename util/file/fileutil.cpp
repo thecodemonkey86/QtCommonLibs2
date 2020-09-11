@@ -2,27 +2,21 @@
 
 #include <QHash>
 
-QString QtCommon2::FileUtil::getFilteredFileName(const QString &filename)
+QString QtCommon2::FileUtil::getFilteredFileName(QString filename)
 {
-  QString fn(filename);
-      QHash<char,char> replace;
-      replace.insert(':','-');
-      replace.insert('?','-');
-      replace.insert('/','_');
-      replace.insert('\\','_');
-      replace.insert('\t','_');
-      replace.insert('"','_');
-      replace.insert('|','_');
-      replace.insert('*','_');
-      replace.insert('<','_');
-      replace.insert('>','_');
-
-      for(char key : replace.keys()) {
-          fn=fn.replace(QChar(key), QChar(replace[key]));
-      }
-      fn = fn.trimmed();
-      return fn;
+  return filename
+      .replace(':','-')
+      .replace('?','-')
+      .replace('/','_')
+      .replace('\\','_')
+      .replace('\t','_')
+      .replace('"','_')
+      .replace('|','_')
+      .replace('*','_')
+      .replace('<','_')
+      .replace('>','_').trimmed();
 }
+
 
 bool QtCommon2::FileUtil::isValidFileName(const QString &filename)
 {

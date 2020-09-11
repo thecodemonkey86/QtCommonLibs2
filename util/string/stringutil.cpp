@@ -15,6 +15,11 @@ QString QtCommon2::StringUtil::fromCp1252(const QByteArray &data)
     return  decoder->toUnicode(data,data.length());
 }
 
+QByteArray QtCommon2::StringUtil::toCp1252(const QString &str)
+{
+  return QTextCodec::codecForName("Windows-1252")->makeEncoder()->fromUnicode(str);
+}
+
 bool QtCommon2::StringUtil::isValidEmail(const QString &email)
 {
     QRegularExpression regex(QStringLiteral("^[0-9a-zA-Z]+([0-9a-zA-Z][-._+])[0-9a-zA-Z]+@[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)([0-9a-zA-Z][.])[a-zA-Z]{2,6}$"));
