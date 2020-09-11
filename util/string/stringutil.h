@@ -1,6 +1,7 @@
 #ifndef STRINGUTIL_H
 #define STRINGUTIL_H
 
+#include <QRandomGenerator>
 #include <QString>
 #include <QVector>
 #include "qtcommon2_global.h"
