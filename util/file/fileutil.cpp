@@ -1,6 +1,9 @@
 #include "fileutil.h"
 
 #include <QHash>
+#include <exception/qtexception.h>
+#include <QDebug>
+#include <QThread>
 
 QString QtCommon2::FileUtil::getFilteredFileName(QString filename)
 {
@@ -154,6 +157,75 @@ uint64_t QtCommon2::FileUtil::calcDirSize(const QDir & dir) {
   for(QString childDirPath : dir.entryList(dirFilters))
     size+= calcDirSize(dir.path() + QDir::separator() + childDirPath);
   return size;
+}
+
+void QtCommon2::FileUtil::open(QFile &file, QIODevice::OpenMode openMode, int maxRetries)
+{
+  int count=0;
+  do {
+    if(file.open(openMode))
+    {
+      return;
+    } else {
+      qWarning() <<QLatin1String("Failed to open file %1: %2").arg(file.fileName(), file.errorString());
+      QThread::msleep(100);
+    }
+  } while( (count++) < maxRetries);
+  throwExceptionWithLine(QLatin1String("Finally failed to open file %1: %2").arg(file.fileName(), file.errorString()));
+}
+
+
+
+void QtCommon2::FileUtil::removeFile(QFile &file, int maxRetries)
+{
+  if(!file.exists())
+  {
+    return;
+  }
+  int count=0;
+  do {
+    if(file.remove())
+    {
+      return;
+    } else {
+      qWarning() <<QLatin1String("Failed to remove file %1: %2").arg(file.fileName(), file.errorString());
+      QThread::msleep(100);
+    }
+  } while( (count++) < maxRetries);
+  throwExceptionWithLine(QLatin1String("Finally failed to remove file %1: %2").arg(file.fileName(), file.errorString()));
+}
+
+void QtCommon2::FileUtil::removeFile(QFile &&file, int maxRetries)
+{
+  if(!file.exists()) {
+    return;
+  }
+  int count=0;
+  do {
+    if(file.remove())
+    {
+      return;
+    } else {
+      qWarning() <<QLatin1String("Failed to remove file %1: %2").arg(file.fileName(), file.errorString());
+      QThread::msleep(100);
+    }
+  } while( (count++) < maxRetries);
+  throwExceptionWithLine(QLatin1String("Finally failed to remove file %1: %2").arg(file.fileName(), file.errorString()));
+}
+
+void QtCommon2::FileUtil::renameFile(QFile &file,const QString&newName, int maxRetries)
+{
+  int count=0;
+  do {
+    if(file.rename(newName))
+    {
+      return;
+    } else {
+      qWarning() <<QLatin1String("Failed to rename file %1 to %2: %3").arg(file.fileName(),newName, file.errorString());
+      QThread::msleep(100);
+    }
+  } while( (count++) < maxRetries);
+  throwExceptionWithLine(QLatin1String("Finally failed to rename file %1 to %2: %3").arg(file.fileName(),newName, file.errorString()));
 }
 
 QtCommon2::FileUtil::FileUtil()
