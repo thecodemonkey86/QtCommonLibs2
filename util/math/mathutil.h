@@ -90,6 +90,21 @@ namespace QtCommon2 {
         return floor(d* 100 + 0.5 ) / 100;
     }
 
+    inline int ceiling(float f)
+    {
+        return static_cast<int>(ceil(f));
+    }
+
+    inline unsigned int ceilingUInt(float f)
+    {
+        return static_cast<unsigned int>(ceil(f));
+    }
+
+    inline unsigned long long ceilingUInt64(double d)
+    {
+        return static_cast<unsigned long long>(ceil(d));
+    }
+
 
 
 }
