@@ -1,5 +1,5 @@
-#ifndef STRINGUTIL_H
-#define STRINGUTIL_H
+#pragma once
+
 
 #include <QString>
 #include <QVector>
@@ -23,4 +23,3 @@ namespace QtCommon2 {
 
 }
 
-#endif // STRINGUTIL_H

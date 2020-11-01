@@ -1,5 +1,5 @@
-#ifndef ORDEREDSET_H
-#define ORDEREDSET_H
+#pragma once
+
 #include <QList>
 #include <QSet>
 namespace QtCommon2 {
@@ -60,4 +60,3 @@ public:
 
 };
 }
-#endif // ORDEREDSET_H

@@ -1,5 +1,5 @@
-#ifndef FILEUTIL_H
-#define FILEUTIL_H
+#pragma once
+
 
 #include <QDir>
 #include <QString>
@@ -28,4 +28,3 @@ private:
     ~FileUtil()=default;
 };
 }
-#endif // FILEUTIL_H

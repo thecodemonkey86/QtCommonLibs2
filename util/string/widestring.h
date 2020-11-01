@@ -1,5 +1,5 @@
-#ifndef WIDESTRING_H
-#define WIDESTRING_H
+#pragma once
+
 
 #include <QString>
 
@@ -16,4 +16,3 @@ public:
 }
 
 
-#endif // WIDESTRING_H

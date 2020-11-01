@@ -1,5 +1,5 @@
-#ifndef DATEUTIL_H
-#define DATEUTIL_H
+#pragma once
+
 
 #include <QString>
 #include "qtcommon2_global.h"
@@ -13,4 +13,3 @@ public:
     DateUtil();
 };
 
-#endif // DATEUTIL_H

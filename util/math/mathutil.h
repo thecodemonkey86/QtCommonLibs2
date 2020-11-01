@@ -1,5 +1,5 @@
-#ifndef MATHUTIL
-#define MATHUTIL
+#pragma once
+
 
 #include <inttypes.h>
 #include <cmath>
@@ -108,4 +108,4 @@ namespace QtCommon2 {
 
 
 }
-  #endif // MATHUTIL
+  

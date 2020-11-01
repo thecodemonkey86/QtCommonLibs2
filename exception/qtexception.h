@@ -1,5 +1,5 @@
-#ifndef QTEXCEPTION_H
-#define QTEXCEPTION_H
+#pragma once
+
 
 #include <exception>
 #include <QString>
@@ -31,4 +31,3 @@ protected:
 }
 
 
-#endif // QTEXCEPTION_H

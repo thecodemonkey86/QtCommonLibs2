@@ -1,5 +1,5 @@
-#ifndef CAST_H
-#define CAST_H
+#pragma once
+
 
 #include <memory>
 using namespace std;
@@ -24,4 +24,3 @@ template<class D,class B>unique_ptr<D>cast(unique_ptr<B> ptr){
 }
 
 }
-#endif // CAST_H

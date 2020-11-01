@@ -10,7 +10,3 @@ QtCommon2::CancelException::CancelException(const QString &message) : QtExceptio
 
 }
 
-QtCommon2::CancelException::~CancelException()
-{
-
-}
