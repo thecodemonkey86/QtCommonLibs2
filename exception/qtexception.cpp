@@ -5,27 +5,21 @@ QtCommon2::QtException::QtException()
   this->line = 0;
 }
 
-QtCommon2::QtException::QtException(const QString &msg) : std::exception()
+QtCommon2::QtException::QtException(const QString &msg) : std::exception(msg.toUtf8().data())
 {
-    this->msg = msg;
     this->line = 0;
 }
 
-QtCommon2::QtException::QtException(const QString &msg, const QString &file, int line)
+QtCommon2::QtException::QtException(const QString &msg, const QString &file, int line): std::exception(msg.toUtf8().data())
 {
-    this->msg = msg;
     this->line = line;
     this->file = file;
 }
 
-QtCommon2::QtException::~QtException()
-{
 
-}
-
-const QString &QtCommon2::QtException::getMsg() const
+QString QtCommon2::QtException::getMsg() const
 {
-    return msg;
+    return QString(what());
 }
 
 const QString & QtCommon2::QtException::getFile() const
@@ -36,9 +30,9 @@ const QString & QtCommon2::QtException::getFile() const
 QString QtCommon2::QtException::getLogString() const
 {
   if(line>0) {
-    return QStringLiteral("%1, file: %2 in line %3").arg(msg,file,QString::number(line));
+    return QLatin1String("%1, file: %2 in line %3").arg(getMsg(),file,QString::number(line));
   }
-  return msg;
+  return getMsg();
 }
 
 int QtCommon2::QtException::getLine() const
@@ -46,7 +40,3 @@ int QtCommon2::QtException::getLine() const
     return line;
 }
 
-const char *QtCommon2::QtException::what() const noexcept
-{
-    return msg.toUtf8().data();
-}

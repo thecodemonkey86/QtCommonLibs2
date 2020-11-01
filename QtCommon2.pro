@@ -27,10 +27,10 @@ SOURCES += \
     util/string/stringutil.cpp \
     exception/qtexception.cpp \
     util/cryptography/cryptutil.cpp \
-    log/log.cpp \
     exception/cancelexception.cpp \
     util/string/dateutil.cpp \
-    util/file/fileutil.cpp
+    util/file/fileutil.cpp \
+    util/string/widestring.cpp
 
 HEADERS += \
     qtcommon2_global.h \
@@ -40,10 +40,10 @@ HEADERS += \
     util/string/stringutil.h \
     exception/qtexception.h \
     util/cryptography/cryptutil.h \
-    log/log.h \
     exception/cancelexception.h \
     util/string/dateutil.h \
-    util/file/fileutil.h
+    util/file/fileutil.h \
+    util/string/widestring.h
 
 osx {
     QMAKE_LFLAGS_SONAME = -Wl,-install_name,@executable_path/../Frameworks/

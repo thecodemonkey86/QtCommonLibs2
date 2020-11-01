@@ -25,7 +25,7 @@ public:
 
 private:
     FileUtil();
-    ~FileUtil();
+    ~FileUtil()=default;
 };
 }
 #endif // FILEUTIL_H

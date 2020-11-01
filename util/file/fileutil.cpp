@@ -233,7 +233,3 @@ QtCommon2::FileUtil::FileUtil()
 
 }
 
-QtCommon2::FileUtil::~FileUtil()
-{
-
-}

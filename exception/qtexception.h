@@ -12,11 +12,11 @@ public:
     QtException();
     QtException(const QString& msg);
     QtException(const QString& msg,const QString & file,int line);
-    virtual ~QtException() override ;
+    virtual ~QtException() override =default;
 
 
 
-    const QString & getMsg() const;
+    QString getMsg() const;
     int getLine() const;
     const QString & getFile() const;
 
@@ -24,11 +24,7 @@ public:
 protected:
     int line;
     QString file;
-    QString msg;
 
-    // exception interface
-public:
-    virtual const char *what() const noexcept  override;
 
 };
 

@@ -2,7 +2,6 @@
 
 #include <QRandomGenerator>
 #include <QRegularExpression>
-#include <QTextDecoder>
 
 
 QString QtCommon2::StringUtil::ucFirst(const QString &str)
@@ -10,16 +9,16 @@ QString QtCommon2::StringUtil::ucFirst(const QString &str)
     return str[0].toUpper() + str.mid(1);
 }
 
-QString QtCommon2::StringUtil::fromCp1252(const QByteArray &data)
-{
-    QTextDecoder* decoder = QTextCodec::codecForName("Windows-1252")->makeDecoder();
-    return  decoder->toUnicode(data,data.length());
-}
+//QString QtCommon2::StringUtil::fromCp1252(const QByteArray &data)
+//{
+//    QTextDecoder* decoder = QTextCodec::codecForName("Windows-1252")->makeDecoder();
+//    return  decoder->toUnicode(data,data.length());
+//}
 
-QByteArray QtCommon2::StringUtil::toCp1252(const QString &str)
-{
-  return QTextCodec::codecForName("Windows-1252")->makeEncoder()->fromUnicode(str);
-}
+//QByteArray QtCommon2::StringUtil::toCp1252(const QString &str)
+//{
+//  return QTextCodec::codecForName("Windows-1252")->makeEncoder()->fromUnicode(str);
+//}
 
 bool QtCommon2::StringUtil::isValidEmail(const QString &email)
 {
@@ -33,7 +32,7 @@ QtCommon2::StringUtil::StringUtil()
 
 QString& QtCommon2::StringUtil::replaceFirst( QString &subject, const QString & search, const QString & replace)
 {
-    int k=subject.indexOf(search);
+    auto k=subject.indexOf(search);
     if (k>-1) {
         return subject.replace(k, search.size(), replace);
     }
@@ -57,17 +56,8 @@ QString QtCommon2::StringUtil::randString( int length,const QString &chars)
     QString s(length, QChar('0'));
 
     for(int i=0;i<length;i++) {
-      s[i] = chars[QRandomGenerator::global()->bounded(chars.length())];
+      s[i] = chars[QRandomGenerator::global()->bounded(static_cast<int>(chars.length()))];
     }
     return s;
-}
-
-wchar_t *QtCommon2::StringUtil::toWCharT(const QString &s)
-{
-
-    wchar_t* c_Text = new wchar_t[static_cast<unsigned long long>(s.length()) + 1];
-    s.toWCharArray(c_Text);
-    c_Text[s.length()] = '\0';  
-    return c_Text;
 }
 
