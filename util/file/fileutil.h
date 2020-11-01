@@ -14,7 +14,15 @@ public:
     static bool isValidFileNameWin32(const QString & filename );
     static bool isValidFileNameUnix(const QString & filename );
     static uint64_t calcDirSize(const QDir & dir);
-static QString getFilteredFileName(QString filename);
+
+    static void open(QFile & file, QIODevice::OpenMode openMode, int maxRetries=100);
+    static void removeFile(QFile &file, int maxRetries=100);
+    static void removeFile(QFile &&file, int maxRetries=100);
+    static void renameFile(QFile &file, const QString &newName, int maxRetries=100);
+
+    static QString getFilteredFileName(QString filename);
+
+
 private:
     FileUtil();
     ~FileUtil();
