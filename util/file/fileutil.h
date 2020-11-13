@@ -4,6 +4,7 @@
 #include <QDir>
 #include <QString>
 #include "qtcommon2_global.h"
+#include <memory>
 
 namespace QtCommon2 {
 
@@ -19,9 +20,9 @@ public:
     static void removeFile(QFile &file, int maxRetries=100);
     static void removeFile(QFile &&file, int maxRetries=100);
     static void renameFile(QFile &file, const QString &newName, int maxRetries=100);
-
     static QString getFilteredFileName(QString filename);
 
+    static QString  getNumberedTargetFilePathForRenaming(const QString & filePath);
 
 private:
     FileUtil();

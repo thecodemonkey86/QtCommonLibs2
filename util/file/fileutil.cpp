@@ -20,33 +20,46 @@ QString QtCommon2::FileUtil::getFilteredFileName(QString filename)
       .replace('>','_').trimmed();
 }
 
+QString QtCommon2::FileUtil::getNumberedTargetFilePathForRenaming(const QString &filePath)
+{
+  QString targetFilePath(filePath);
+  QFile targetFile(targetFilePath);
+  int counter=1;
+  while(targetFile.exists()) {
+    QFileInfo fi(targetFilePath);
+    targetFilePath = QLatin1String("%1 (%2).%3").arg(fi.dir().absoluteFilePath(fi.baseName()),QString::number(++counter),fi.completeSuffix());
+
+  }
+  return targetFilePath;
+}
+
 
 bool QtCommon2::FileUtil::isValidFileName(const QString &filename)
 {
 #ifdef _WIN32
-   return isValidFileNameWin32(filename);
+  return isValidFileNameWin32(filename);
 #else
-    return isValidFileNameUnix(filename);
+  return isValidFileNameUnix(filename);
 #endif
 }
 
 bool QtCommon2::FileUtil::isValidFileNameWin32(const QString &filename)
 {
-    char forbidden[] = {
-        0x22,
-        0x3c,
-        0x3e,
-        0x7c,
-        0x0,
-        0x1,
-        0x2,
-        0x3,
-        0x4,
-        0x5,
-        0x6,
-        0x7,
-        0x8,
-        0x9,
+  char forbidden[] = {
+    0x22,
+    0x3c,
+    0x3e,
+    0x7c,
+    0x0,
+    0x1,
+    0x2,
+    0x3,
+    0x4,
+    0x5,
+    0x6,
+    0x7,
+    0x8,
+    0x9,
         0xa,
         0xb,
         0xc,
@@ -175,7 +188,6 @@ void QtCommon2::FileUtil::open(QFile &file, QIODevice::OpenMode openMode, int ma
 }
 
 
-
 void QtCommon2::FileUtil::removeFile(QFile &file, int maxRetries)
 {
   if(!file.exists())
@@ -227,6 +239,7 @@ void QtCommon2::FileUtil::renameFile(QFile &file,const QString&newName, int maxR
   } while( (count++) < maxRetries);
   throwExceptionWithLine(QLatin1String("Finally failed to rename file %1 to %2: %3").arg(file.fileName(),newName, file.errorString()));
 }
+
 
 QtCommon2::FileUtil::FileUtil()
 {
