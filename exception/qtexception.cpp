@@ -5,21 +5,23 @@ QtCommon2::QtException::QtException()
   this->line = 0;
 }
 
-QtCommon2::QtException::QtException(const QString &msg) : std::exception(msg.toUtf8().data())
+QtCommon2::QtException::QtException(const QString &msg)
 {
     this->line = 0;
+    this->msg = msg;
 }
 
-QtCommon2::QtException::QtException(const QString &msg, const QString &file, int line): std::exception(msg.toUtf8().data())
+QtCommon2::QtException::QtException(const QString &msg, const QString &file, int line)
 {
     this->line = line;
     this->file = file;
+    this->msg = msg;
 }
 
 
-QString QtCommon2::QtException::getMsg() const
+const QString & QtCommon2::QtException::getMsg() const
 {
-    return QString(what());
+    return msg;
 }
 
 const QString & QtCommon2::QtException::getFile() const
