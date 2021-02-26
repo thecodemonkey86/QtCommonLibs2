@@ -8,6 +8,7 @@ namespace QtCommon2 {
     public:
         CryptUtil();
        static QString md5(const QString & s);
+       static QByteArray md5(const QByteArray & s);
     };
 }
 #endif // CRYPTUTIL_H

@@ -23,10 +23,9 @@ QString QtCommon2::FileUtil::getFilteredFileName(QString filename)
 QString QtCommon2::FileUtil::getNumberedTargetFilePathForRenaming(const QString &filePath)
 {
   QString targetFilePath(filePath);
-  QFile targetFile(targetFilePath);
+   QFileInfo fi(targetFilePath);
   int counter=1;
-  while(targetFile.exists()) {
-    QFileInfo fi(targetFilePath);
+  while(QFile(targetFilePath).exists()) {
     targetFilePath = QLatin1String("%1 (%2).%3").arg(fi.dir().absoluteFilePath(fi.baseName()),QString::number(++counter),fi.completeSuffix());
 
   }
