@@ -14,7 +14,7 @@ public:
     QtException();
     QtException(const QString& msg);
     QtException(const QString& msg,const QString & file,int line);
-
+    ~QtException() = default;
 
     const QString &getMsg() const;
     int getLine() const;

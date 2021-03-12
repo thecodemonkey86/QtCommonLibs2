@@ -1,14 +1,15 @@
 #pragma once
 
 
-#include <QAnyStringView>
 #include "qtcommon2_global.h"
+
+#include <QString>
 
 
 class QTCOMMON2SHARED_EXPORT DateUtil
 {
 public:
-    static const QAnyStringView DATEFORMAT_DE_D10;
+    static const QLatin1String DATEFORMAT_DE_D10;
 public:
     DateUtil();
 };
