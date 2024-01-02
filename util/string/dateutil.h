@@ -1,16 +1,16 @@
-#pragma once
-
-
-#include "qtcommon2_global.h"
+#ifndef DATEUTIL_H
+#define DATEUTIL_H
 
 #include <QString>
+#include "qtcommon2_global.h"
 
 
 class QTCOMMON2SHARED_EXPORT DateUtil
 {
 public:
-    static const QLatin1String DATEFORMAT_DE_D10;
+    static const QString DATEFORMAT_DE_D10;
 public:
     DateUtil();
 };
 
+#endif // DATEUTIL_H

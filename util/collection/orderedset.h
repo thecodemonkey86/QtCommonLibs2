@@ -1,13 +1,13 @@
-#pragma once
-
-#include <QList>
+#ifndef ORDEREDSET_H
+#define ORDEREDSET_H
+#include <QVector>
 #include <QSet>
 namespace QtCommon2 {
 template <class T>
 class OrderedSet
 {
 protected:
-    QList<T> insertionOrder;
+    QVector<T> insertionOrder;
     QSet<T> items;
 public:
     OrderedSet() {
@@ -31,7 +31,7 @@ public:
         return items.contains(value);
     }
 
-    QList<T> toList() const {
+    QVector<T> toList() const {
         return insertionOrder;
     }
 
@@ -43,20 +43,21 @@ public:
         return insertionOrder.size();
     }
 
-    inline typename QList<T>::iterator begin() {
+    inline typename QVector<T>::iterator begin() {
         return insertionOrder.begin();
     }
-    inline typename QList<T>::const_iterator begin() const {
+    inline typename QVector<T>::const_iterator begin() const {
         return insertionOrder.constBegin();
     }
-    inline typename QList<T>::iterator end() {
+    inline typename QVector<T>::iterator end() {
         return insertionOrder.end();
     }
 
-    inline typename QList<T>::const_iterator end() const {
+    inline typename QVector<T>::const_iterator end() const {
          return insertionOrder.constEnd();
     }
 
 
 };
 }
+#endif // ORDEREDSET_H

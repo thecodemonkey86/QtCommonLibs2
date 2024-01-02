@@ -1,9 +1,13 @@
 #include "fileutil.h"
-
+#include <QLocale>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include "qbytearrayview.h"
+#endif
 #include <QHash>
 #include <exception/qtexception.h>
 #include <QDebug>
 #include <QThread>
+#include <QCryptographicHash>
 
 QString QtCommon2::FileUtil::getFilteredFileName(QString filename)
 {
@@ -13,25 +17,88 @@ QString QtCommon2::FileUtil::getFilteredFileName(QString filename)
       .replace('/','_')
       .replace('\\','_')
       .replace('\t','_')
-      .replace('"','_')
+      .remove(QChar('"'))
       .replace('|','_')
       .replace('*','_')
       .replace('<','_')
       .replace('>','_').trimmed();
 }
 
-QString QtCommon2::FileUtil::getNumberedTargetFilePathForRenaming(const QString &filePath)
+QString QtCommon2::FileUtil::getNumberedFilePath(const QString &filePath)
 {
   QString targetFilePath(filePath);
    QFileInfo fi(targetFilePath);
   int counter=1;
   while(QFile(targetFilePath).exists()) {
-    targetFilePath = QLatin1String("%1 (%2).%3").arg(fi.dir().absoluteFilePath(fi.baseName()),QString::number(++counter),fi.completeSuffix());
+    targetFilePath = QStringLiteral("%1 (%2).%3").arg(fi.dir().absoluteFilePath(fi.completeBaseName()),QString::number(++counter),fi.suffix());
 
   }
   return targetFilePath;
 }
 
+QByteArray QtCommon2::FileUtil::md5(const QString &filePath)
+{
+  QCryptographicHash h(QCryptographicHash::Md5);
+  QFile f(filePath);
+  open(f,QIODevice::ReadOnly)  ;
+  char buf[8192];
+  int r;
+  while((r=f.read(buf,sizeof(buf)))>0)
+  {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    h.addData(QByteArrayView(buf,r));
+#else
+    h.addData(buf,r);
+#endif
+  }
+  return h.result();
+
+}
+
+QByteArray QtCommon2::FileUtil::sha256(const QString &filePath)
+{
+  QCryptographicHash h(QCryptographicHash::Sha256);
+  QFile f(filePath);
+  open(f,QIODevice::ReadOnly)  ;
+  char buf[8192];
+  int r;
+  while((r=f.read(buf,sizeof(buf)))>0)
+  {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    h.addData(QByteArrayView(buf,r));
+#else
+    h.addData(buf,r);
+#endif
+  }
+  return h.result();
+
+}
+
+QString QtCommon2::FileUtil::readAllUtf8(const QString &filePath)
+{
+  QFile f(filePath);
+  open(f,QIODevice::ReadOnly);
+  return QString::fromUtf8(f.readAll());
+}
+
+QByteArray QtCommon2::FileUtil::readAllBytes(const QString &filePath)
+{
+    QFile f(filePath);
+    open(f,QIODevice::ReadOnly);
+    return f.readAll();
+}
+
+void QtCommon2::FileUtil::saveToFile(const QString &filePath, const QByteArray & bytes)
+{
+    QFile f(filePath);
+    open(f,QIODevice::WriteOnly);
+    f.write(bytes);
+}
+
+QString QtCommon2::FileUtil::ensureFileExtension(const QString &filePath, const QString &ext)
+{
+  return filePath.endsWith("."+ext,Qt::CaseInsensitive) ? filePath : filePath+"."+ext;
+}
 
 bool QtCommon2::FileUtil::isValidFileName(const QString &filename)
 {
@@ -179,11 +246,11 @@ void QtCommon2::FileUtil::open(QFile &file, QIODevice::OpenMode openMode, int ma
     {
       return;
     } else {
-      qWarning() <<QLatin1String("Failed to open file %1: %2").arg(file.fileName(), file.errorString());
+      qWarning().noquote() <<QStringLiteral("Failed to open file %1: %2").arg(file.fileName(), file.errorString());
       QThread::msleep(100);
     }
   } while( (count++) < maxRetries);
-  throwExceptionWithLine(QLatin1String("Finally failed to open file %1: %2").arg(file.fileName(), file.errorString()));
+  throwExceptionWithLine(QStringLiteral("Finally failed to open file %1: %2").arg(file.fileName(), file.errorString()));
 }
 
 
@@ -199,11 +266,11 @@ void QtCommon2::FileUtil::removeFile(QFile &file, int maxRetries)
     {
       return;
     } else {
-      qWarning() <<QLatin1String("Failed to remove file %1: %2").arg(file.fileName(), file.errorString());
+      qWarning().noquote() <<QStringLiteral("Failed to remove file %1: %2").arg(file.fileName(), file.errorString());
       QThread::msleep(100);
     }
   } while( (count++) < maxRetries);
-  throwExceptionWithLine(QLatin1String("Finally failed to remove file %1: %2").arg(file.fileName(), file.errorString()));
+  throwExceptionWithLine(QStringLiteral("Finally failed to remove file %1: %2").arg(file.fileName(), file.errorString()));
 }
 
 void QtCommon2::FileUtil::removeFile(QFile &&file, int maxRetries)
@@ -217,31 +284,74 @@ void QtCommon2::FileUtil::removeFile(QFile &&file, int maxRetries)
     {
       return;
     } else {
-      qWarning() <<QLatin1String("Failed to remove file %1: %2").arg(file.fileName(), file.errorString());
+      qWarning().noquote() <<QStringLiteral("Failed to remove file %1: %2").arg(file.fileName(), file.errorString());
       QThread::msleep(100);
     }
   } while( (count++) < maxRetries);
-  throwExceptionWithLine(QLatin1String("Finally failed to remove file %1: %2").arg(file.fileName(), file.errorString()));
+  throwExceptionWithLine(QStringLiteral("Finally failed to remove file %1: %2").arg(file.fileName(), file.errorString()));
 }
 
-void QtCommon2::FileUtil::renameFile(QFile &file,const QString&newName, int maxRetries)
+void QtCommon2::FileUtil::renameFile(QFile &file, const QString&newName, int maxRetries, bool forceOverwrite)
 {
   int count=0;
   do {
+    if(forceOverwrite)
+    {
+       QFile newFile(newName);
+      if(newFile.exists())
+      {
+        removeFile(newFile);
+      }
+    }
+
     if(file.rename(newName))
     {
       return;
     } else {
-      qWarning() <<QLatin1String("Failed to rename file %1 to %2: %3").arg(file.fileName(),newName, file.errorString());
+      qWarning().noquote() <<QStringLiteral("Failed to rename file %1 to %2: %3").arg(file.fileName(),newName, file.errorString());
       QThread::msleep(100);
     }
   } while( (count++) < maxRetries);
-  throwExceptionWithLine(QLatin1String("Finally failed to rename file %1 to %2: %3").arg(file.fileName(),newName, file.errorString()));
+  throwExceptionWithLine(QStringLiteral("Finally failed to rename file %1 to %2: %3").arg(file.fileName(),newName, file.errorString()));
 }
 
+
+void QtCommon2::FileUtil::renameFile(const QString &file,const QString&newName, int maxRetries, bool forceOverwrite)
+{
+  QFile f(file);
+  renameFile(f,newName,maxRetries,forceOverwrite);
+}
+
+void QtCommon2::FileUtil::copyFile(QFile &file, const QString &newName, int maxRetries, bool forceOverwrite)
+{
+  int count=0;
+  do {
+    if(forceOverwrite)
+    {
+      QFile newFile(newName);
+      if(newFile.exists())
+      {
+        removeFile(newFile);
+      }
+    }
+
+    if(file.copy(newName))
+    {
+      return;
+    } else {
+      qWarning().noquote() <<QStringLiteral("Failed to rename file %1 to %2: %3").arg(file.fileName(),newName, file.errorString());
+      QThread::msleep(100);
+    }
+  } while( (count++) < maxRetries);
+  throwExceptionWithLine(QStringLiteral("Finally failed to rename file %1 to %2: %3").arg(file.fileName(),newName, file.errorString()));
+}
 
 QtCommon2::FileUtil::FileUtil()
 {
 
 }
 
+QtCommon2::FileUtil::~FileUtil()
+{
+
+}

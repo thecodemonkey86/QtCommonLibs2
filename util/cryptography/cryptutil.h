@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef CRYPTUTIL_H
+#define CRYPTUTIL_H
 #include <QString>
 #include "qtcommon2_global.h"
 namespace QtCommon2 {
@@ -7,8 +7,8 @@ namespace QtCommon2 {
     {
     public:
         CryptUtil();
-        static QString md5AsString(const QString & s);
-        static QString md5AsString(const QByteArray & data);
-        static QByteArray md5(const QByteArray &data);
+       static QString md5(const QString & s);
+       static QByteArray md5(const QByteArray & s);
     };
 }
+#endif // CRYPTUTIL_H

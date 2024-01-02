@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef CANCELEXCEPTION_H
+#define CANCELEXCEPTION_H
 
 #include "qtexception.h"
 
@@ -10,6 +10,7 @@ namespace QtCommon2 {
     public:
         CancelException();
         CancelException(const QString &msg);
-        virtual ~CancelException()=default;
+        virtual ~CancelException();
     };
 }
+#endif // CANCELEXCEPTION_H
